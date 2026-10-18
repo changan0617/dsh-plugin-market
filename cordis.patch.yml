@@ -1,0 +1,17 @@
+# dsh-plugin-market bundle patch
+#
+# Installing the package with
+#
+#   dsh plugin --profile web add github:changan0617/dsh-plugin-market
+#
+# appends `dsh-plugin-market` to the profile's bundle stack and merges this
+# single `insert` row. Remove with
+#
+#   dsh plugin --profile web remove dsh-plugin-market
+#
+# The double-mount guard backs this row out when the same package is already
+# mounted by another entry.
+- insert:
+    - id: plugin-market-button
+      name: 'dsh-plugin-market'
+      disabled: !!js "[...ctx.loader.entries()].some((e) => e.options.name === 'dsh-plugin-market' && e.options.id !== 'plugin-market-button' && !e.disabled)"
